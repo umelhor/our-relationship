@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="imagens/foto1.jpg" type="image/png">
+    <title>Nosso Relacionamento</title>
+    <link rel="stylesheet" href="style.css  ">
+    
+</head>
+<body>
+    <body style="overflow-y: auto;">
+    <audio autoplay loop>
+        <source src="lisboa.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <div class="container">
+        <h1>Shopia & kauhan</h1>
+        <div class="slideshow-container">
+            <img id="slideshow" class="photo" alt="Nossa Foto">
+        </div>
+        <div class="photo-caption">
+            <p>Com você há:</p>
+            <p id="timeTogether"></p>
+        </div>
+        <p class="message">Para lembrarmos constantemente da nossa melhor decisão.
+            Sou imensamente feliz e grata por te ter!
+            Amo você, amo a gente e amo tudo que estamos construindo… uma vida com você é muito pouco, te quero em todas que virão.
+        </p>
+    </div>
+
+    <div class="hearts-container"></div>
+
+    <script>
+        const startDate = new Date('2023-10-22T20:00:00');
+
+        function updateTime() {
+            const today = new Date();
+            
+            let years = today.getFullYear() - startDate.getFullYear();
+            let months = today.getMonth() - startDate.getMonth();
+            let days = today.getDate() - startDate.getDate();
+            let hours = today.getHours() - startDate.getHours();
+            let minutes = today.getMinutes() - startDate.getMinutes();
+            let seconds = today.getSeconds() - startDate.getSeconds();
+
+            if (days < 0) {
+    months--;
+    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+} else if (days === 0) {
+    days = 1; 
+}
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            if (hours < 0) {
+                days--;
+                hours += 24;
+            }
+
+            if (minutes < 0) {
+                hours--;
+                minutes += 60;
+            }
+
+            if (seconds < 0) {
+                minutes--;
+                seconds += 60;
+            }
+
+            document.getElementById('timeTogether').textContent = 
+                `${years} anos, ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+        }
+
+        setInterval(updateTime, 1000);
+
+        // Slideshow
+        const images = [
+            'imagens/foto1.jpeg',
+            'imagens/foto2.jpeg',
+            'imagens/foto3.jpeg',
+            'imagens/foto4.jpeg',
+            'imagens/foto5.jpeg',
+            'imagens/foto6.jpeg',
+            'imagens/foto7.jpeg',
+            'imagens/foto8.jpeg',
+            'imagens/foto9.jpeg',
+        ];
+
+        let currentIndex = 0;
+        function showNextImage() {
+            const imgElement = document.getElementById('slideshow');
+            imgElement.src = images[currentIndex];
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        setInterval(showNextImage, 3000); 
+        showNextImage(); 
+
+        
+        setTimeout(() => {
+    const heartsContainer = document.querySelector('.hearts-container');
+    const heartColors = ['🤍', '🤍']; 
+    for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = heartColors[Math.floor(Math.random() * heartColors.length)];
+
+        
+        heart.style.left = `${45 + (Math.random() * 20 - 5)}%`;
+        heart.style.animationDelay = `${Math.random() * 2}s`; 
+        heartsContainer.appendChild(heart);
+    }
+}, 1);
+
+document.body.addEventListener('click', function playMusic() {
+    const audio = new Audio('lisboa.mp3');
+    audio.loop = true;
+    audio.play();
+
+    document.body.removeEventListener('click', playMusic);
+});
+    </script>
+</body>
+</html>
